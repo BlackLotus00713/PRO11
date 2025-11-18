@@ -141,12 +141,7 @@ int main()
 		std::cout << arr[i] << " ";
 	}
 
-	std::cout << "\n\n";
 	
-	for (int i = size - 1; i >= 0; i--)
-	{
-		std::cout << arr[i] << " ";
-	}
 	
 	return 0;
 }
