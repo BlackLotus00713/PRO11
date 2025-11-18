@@ -6,7 +6,7 @@
 int main()
 {
 	setlocale(LC_ALL, "ru");
-
+	srand(time(NULL));
 	std::cout << "Hello world\n\n\n";
 
 	/*
@@ -134,15 +134,24 @@ int main()
 	const int size = 10;
 
 	int arr[size]{};
-	
+	int sum = 0;
+
 	for (int i = 0; i < size; i++)
 	{
-		arr[i] = i + 1;
-		std::cout << arr[i] << " ";
+		arr[i] = rand() % 10 + 1;
+		sum += arr[i];
 	}
 
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << arr[i] << " ";
+	}
 	
-	
+	std::cout << "\nSum = " << sum << "\n";
+
+
+
+
 	return 0;
 }
 
