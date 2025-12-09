@@ -1,165 +1,188 @@
 #include <iostream>
 #include <Windows.h>
+#include <type_traits>
+
+void FillArray(int arr[], int size);
+void FillArray(double arr[], int size);
+void FillArray(char arr[], int size);
+void FillArray(bool arr[], int size);
+
+void PrintArray(int arr[], int size);
+void PrintArray(double arr[], int size);
+void PrintArray(char arr[], int size);
+void PrintArray(bool arr[], int size);
+
+int RecSum(int a, int b)
+{
+	if (b == 0)
+	{
+		return a;
+	}
+	if (b < 0)
+	{
+		return RecSum(a - 1, b + 1);
+	}
+	else
+	{
+		return RecSum(a + 1, b - 1);
+	}
+}
+
+int Fak(int n)
+{
+	if (n < 0)
+	{
+		return 0;
+	}
+	if (n == 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return n * Fak(n - 1);
+	}
+}
 
 
+template <typename Arr>
+double Arifm(Arr arr[], int size)
+{
+	if (std::is_same<Arr, char>::value == true)
+	{
+		std::cout << "Нельзя посчитать не на числовом массиве! Поэтому: ";
+		return 0.0;
+	}
+	else if (std::is_same<Arr, bool>::value == true)
+	{
+		std::cout << "Нельзя посчитать не на числовом массиве! Поэтому: ";
+		return 0.0;
+	}
+	else
+	{
+		double result = 0.0;
+		for (int i = 0; i < size; i++)
+		{
+			result += arr[i];
+		}
+		return result / size;
+	}
+}
+
+void Moo(int *c)
+{
+	*c += 2;
+}
+
+void Moo2(int &c)
+{
+	c += 2;
+}
 
 int main()
 {
 	setlocale(LC_ALL, "ru");
 	srand(time(NULL));
 	std::cout << "Hello world\n\n\n";
+	
+	int arr[5]{ 3,4,5,1,3 };
+	std::cout << *arr;
+
+	//   X
+
+
 
 	/*
-	int num = 0;
-	int sum = 0;
+	const int size = 6;
+	int arrI[size];
+	double arrD[size];
+	char arrC[size];
+	bool arrB[size];
 
-	while (true)
-	{
-		std::cin >> num;
-		if (num == 0)
-		{
-			break;
-		}
-		sum = sum + num;
-	}
-	
-	std::cout << sum << '\n' << " " << 123;
+
+	FillArray(arrI, size);
+	FillArray(arrD, size);
+	FillArray(arrC, size);
+	FillArray(arrB, size);
+
+	PrintArray(arrI, size);
+	PrintArray(arrD, size);
+	PrintArray(arrC, size);
+	PrintArray(arrB, size);
+
+	std::cout << "\n Проверка!\n\n" << Arifm(arrI, size) << "\n";
+	std::cout << Arifm(arrD, size) << "\n";
+	std::cout << Arifm(arrC, size) << "\n";
+	std::cout << Arifm(arrB, size) << "\n";
 	*/
-
-	/*
-	double rub = 0, dollar = 81.65, euro = 94.75, yuan = 11.45, farit = 37., yena = 0.54;
-	int choose = 0;
-	double comission = 0, percent = 0.05;
-
-	Sleep(1000);
-
-	while (true)
-	{
-		system("cls"); // очистка консоли от информации
-		std::cout << "Конвертер валют\n\n";
-
-		while (true)
-		{
-			std::cout << "Введите кол-во рублей для обмена: ";
-			std::cin >> rub;
-			if (rub >= 100)
-			{
-				break;
-			}
-			std::cout << "Некорректный ввод. Минимальный взнос - 100 руб\n\n";
-			system("pause");
-			system("cls");
-		}
-
-		while (true)
-		{
-			std::cout << "Выберите валюту для покупки\n";
-			std::cout << "1 - Доллар\t" << dollar << " руб\n";
-			std::cout << "2 - Евро\t" << euro << " руб\n";
-			std::cout << "3 - Юань\t" << yuan << " руб\n";
-			std::cout << "4 - Фарит\t" << farit << " руб\n";
-			std::cout << "5 - Йена\t" << yena << " руб\n";
-			std::cin >> choose;
-			if (choose > 0 || choose < 6)
-			{
-				break;
-			}
-			std::cout << "Некорректный ввод\n\n";
-			system("pause");
-			system("cls");
-		}
-
-		comission = rub * percent;
-		rub -= comission;
-
-		if (choose == 1)
-		{
-			std::cout << "К покупке: " << rub / dollar << " долларов\nКомиссия составила: "
-				<< comission << " рублей\n\n";
-		}
-		else if (choose == 2)
-		{
-			std::cout << "К покупке: " << rub / euro << " евро\nКомиссия составила: "
-				<< comission << " рублей\n\n";
-		}
-		else if (choose == 3)
-		{
-			std::cout << "К покупке: " << rub / yuan << " юаней\nКомиссия составила: "
-				<< comission << " рублей\n\n";
-		}
-		else if (choose == 4)
-		{
-			std::cout << "К покупке: " << rub / farit << " Фаритов\nКомиссия составила: "
-				<< comission << " рублей\n\n";
-		}
-		else if (choose == 5)
-		{
-			std::cout << "К покупке: " << rub / yena << " Йен\nКомиссия составила: "
-				<< comission << " рублей\n\n";
-		}
-
-
-		while (true)
-		{
-			std::cout << "Повторим?\n1 - Да\n2 - Нет\nВвод: ";
-			std::cin >> choose;
-			if (choose < 1 || choose > 2)
-			{
-				std::cout << "Ошибка ввода\n";
-				system("pause");
-				system("cls");
-			}
-			else
-			{
-				break;
-			}
-		}
-
-		if (choose == 2)
-		{
-			system("cls");
-			std::cout << "Спасибо за использование программы\n\n";
-			break;
-		}
-
-	}
-	*/
-
-	/*
-		
-		тип_данных имя_массива[кол-во_ячеек];
-	
-	*/
-
-	const int size = 10;
-
-	int arr[size]{};
-	int sum = 0;
-
-	for (int i = 0; i < size; i++)
-	{
-		arr[i] = rand() % 10 + 1;
-		sum += arr[i];
-	}
-
-	for (int i = 0; i < size; i++)
-	{
-		std::cout << arr[i] << " ";
-	}
-	
-	std::cout << "\nSum = " << sum << "\n";
-
-
-
 
 	return 0;
 }
 
+void FillArray(int arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rand() % 100;
+	}
+}
 
+void FillArray(double arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rand() % 100 * 0.01;
+	}
+}
 
+void FillArray(char arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rand() % 32 + 'а';
+	}
+}
 
+void FillArray(bool arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rand() % 2;
+	}
+}
 
+void PrintArray(int arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << arr[i] << " ";
+	}
+	std::cout << "\n";
+}
 
+void PrintArray(double arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << arr[i] << " ";
+	}
+	std::cout << "\n";
+}
 
+void PrintArray(char arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << arr[i] << " ";
+	}
+	std::cout << "\n";
+}
 
-
+void PrintArray(bool arr[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << arr[i] << " ";
+	}
+	std::cout << "\n";
+}
